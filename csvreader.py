@@ -8,7 +8,7 @@ def fetch_csv(csvfile):
 
     raw_graph = Graph()
     # row_lenght = 0
-    data = list(csv.reader(open("C:\\Users\\HP\\Desktop\\CS Project\\CS-Project\\" + csvfile)))
+    data = list(csv.reader(open(csvfile)))
 
     for i in data[0]:
         row_length = raw_graph.add_new(i) + 1
@@ -27,7 +27,7 @@ def fetch_csv(csvfile):
 
     return raw_graph
 
-
+print("hello")
 
 
 

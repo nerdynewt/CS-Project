@@ -2,6 +2,7 @@
 
 from csvreader import fetch_csv
 from graph import Graph
+from finder import *
 # from matching import match
 
 graph1 = fetch_csv("data.csv")
