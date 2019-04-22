@@ -23,20 +23,32 @@ v = []
 
 def match(graph):
     divider(graph)
-    dfs(graph, graph.nodes[u[0]])
+    graph = path_finder(graph)
+    return graph
 
 def divider(graph):
-    u = [i for i in graph.nodes.query_index in range (0, graph.row_length) & graph.nodes[i].match == -1]
-    v = [i for i in graph.nodes.qery_index in range (graph.row_length, len(graph.nodes)) & graph.nodes[i].match == -1]
+    for i in graph.nodes in range (0, graph.row_length):
+        if i.match == -1:
+            u.append(i.query_index)
+    for i in graph.nodes in range (graph.row_length, len(graph.nodes)):
+        if i.match == -1:
+            v.append(i.query_index)
+
+    print("u:", u)
+    print("v:", v)
+
+    # u = [i for i in graph.nodes.query_index in range (0, graph.row_length) & graph.nodes[i].match == -1]
+    # v = [i for i in graph.nodes.qery_index in range (graph.row_length, len(graph.nodes)) & graph.nodes[i].match == -1]
 
 
-def path_finder(graph, node):    
+def path_finder(graph):    
   
     for node_index in u:
         if graph.nodes[node_index].match == -1:
-            dfs(graph, u)
+            graph = dfs(graph, u)
         else:
             u.remove(u)
+    return graph
 
 def dfs(graph, node_index):
     path = list()
@@ -53,7 +65,8 @@ def dfs(graph, node_index):
                 path.append(i)
                 dfs(graph, graph.nodes[i])
             else:
-                augment(graph, path)
+                graph = augment(graph, path)
+    return graph
 
 
 def augment(graph, path):
@@ -62,6 +75,7 @@ def augment(graph, path):
             graph.nodes[i].match = -1
         elif graph.nodes[i].match == -1:
             graph.nodes[i].match = j
+        return graph
 
 # def augment(graph, path):
 #      for nodes, next in zip(path, path[1:]):

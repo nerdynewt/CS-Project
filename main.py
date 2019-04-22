@@ -2,7 +2,7 @@
 
 from csvreader import fetch_csv
 from graph import Graph
-from finder import *
+from finder import match
 # from matching import match
 
 graph1 = fetch_csv("data.csv")
@@ -17,12 +17,12 @@ matched_graph = graph1
 
 
 
-def cycle(node): # Takes a node object as a parameter
-    if len(node.adj) > 1 & node.seen == 0:
-        cycle(node[node.adj[0]])
-        node.seen = 1
-    elif len(node.adj) == 1:
-        print("hello")
+# def cycle(node): # Takes a node object as a parameter
+#     if len(node.adj) > 1 & node.seen == 0:
+#         cycle(node[node.adj[0]])
+#         node.seen = 1
+#     elif len(node.adj) == 1:
+#         print("hello")
 
 
 graph2 = match(graph1)
