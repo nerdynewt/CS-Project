@@ -10,7 +10,6 @@ def fetch_csv(csvfile):
     data = list(csv.reader(open(csvfile)))
 
     for i in data[0]:
-        print(i)
         if i != "Hello":
             raw_graph.row_length = raw_graph.add_new(i) + 1
 
@@ -27,6 +26,3 @@ def fetch_csv(csvfile):
                 raw_graph.add_adj(j-1, (i+raw_graph.row_length)-1)
 
     return raw_graph
-
-
-

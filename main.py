@@ -3,31 +3,19 @@
 from csvreader import fetch_csv
 from graph import Graph
 from finder import match
+from csvwriter import csvwrite
 # from matching import match
+print("NOTE: Numbers shown are indices of nodes\n\n Progress:")
 
 graph1 = fetch_csv("data.csv")
-matched_graph = graph1
 
+graph1 = match(graph1)
 
-# for i in graph1.nodes:
-#     print(i.adj)
+print ("\n\n\n\n\n ----------\n ONE WAY OF MAXIMAL MATCHING IS:")
+for i in range(0, len(graph1.nodes)):
+    if graph1.nodes[i].match != -1:
+        print(graph1.nodes[i].name, "->", graph1.nodes[graph1.nodes[i].match].name)
 
-# def match(input_graph):
-#     cycle(c_graph.nodes[0])
-#     matched_graph = Graph
-#     return matched_graph
+print("\n You can also refer to output.csv for exporting this data")
 
-
-
-# def cycle(node): # Takes a node object as a parameter
-#     if len(node.adj) > 1 & node.seen == 0:
-#         cycle(node[node.adj[0]])
-#         node.seen = 1
-#     elif len(node.adj) == 1:
-#         print("hello")
-
-
-for i in match(graph1).nodes:
-    print(i.match)
-
-# print("Node list:", graph1.name_index)
+csvwrite(graph1)
