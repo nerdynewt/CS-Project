@@ -18,70 +18,94 @@ class Queue:
     def size(self):
         return len(self.items)
 
-u = []
-v = []
 
 def match(graph):
-    divider(graph)
-    graph = path_finder(graph)
+    graph = divider(graph)
+    # graph = dfs(graph, 0, [])
     return graph
+
 
 def divider(graph):
-    for i in graph.nodes in range (0, graph.row_length):
-        if i.match == -1:
-            u.append(i.query_index)
-    for i in graph.nodes in range (graph.row_length, len(graph.nodes)):
-        if i.match == -1:
-            v.append(i.query_index)
-
-    print("u:", u)
-    print("v:", v)
-
-    # u = [i for i in graph.nodes.query_index in range (0, graph.row_length) & graph.nodes[i].match == -1]
-    # v = [i for i in graph.nodes.qery_index in range (graph.row_length, len(graph.nodes)) & graph.nodes[i].match == -1]
-
-
-def path_finder(graph):    
-  
-    for node_index in u:
-        if graph.nodes[node_index].match == -1:
-            graph = dfs(graph, u)
-        else:
-            u.remove(u)
+    for i in range(0, graph.row_length):
+        if graph.nodes[i].match == -1 and not i in graph.u:
+            graph.u.append(i)
+    for i in range (graph.row_length, len(graph.nodes)):
+        if graph.nodes[i].match == -1 and not i in graph.v:
+            graph.v.append(i)
+    for i in graph.u:
+        graph = dfs(graph, i, [])
     return graph
 
-def dfs(graph, node_index):
-    path = list()
-    if node_index in u:
-        for i in graph.nodes[node_index].adj:
-            if graph.nodes[i].match == -1:
-                path.append(i)
-                dfs(graph, graph.nodes[i])
+
+def dfs(graph, node_index, path):
+    path.append(node_index)
+    print("Passed", str(node_index))
+    if node_index in graph.u:
+        print ("Node_index is in u")
+        if graph.nodes[node_index].match == -1:
+            print("It is not connected to anything, going to", graph.nodes[node_index].adj[0])
+            graph = dfs(graph, graph.nodes[node_index].adj[0], path)
+        elif graph.nodes[node_index].match != -1:
+            print("The node is connected looking for another unconnected node")
+            if graph.nodes[node_index].match != graph.nodes[node_index].adj[0]:
+                dfs(graph, graph.nodes[node_index].adj[0], path)
             else:
-                u.remove(graph.query_index(i))
-    if node_index in v:
-        for i in graph.nodes[node_index].adj:
-            if graph.nodes[i].match != -1:
-                path.append(i)
-                dfs(graph, graph.nodes[i])
-            else:
-                graph = augment(graph, path)
+                try: 
+                    dfs(graph, graph.nodes[node_index].adj[1], path)
+                except:
+                    print("hela")
+
+    # if node_index in graph.u:
+    #     print("Node_index is in u")
+    #     for i in graph.nodes[node_index].adj:
+    #         print(i)
+    #         if graph.nodes[node_index].match == -1:
+    #             print("node is not matched")
+    #             graph = dfs(graph, i, path) 
+    if node_index in graph.v:
+        print (str(node_index), "is in v")
+        if graph.nodes[node_index].match == -1:
+            print("It is not matched.")
+            print("Augmenting path:", path)
+            graph = augment(graph, path)   
+        else:
+            print("This node in v is matched, going to", graph.nodes[node_index].match)
+            dfs(graph, graph.nodes[node_index].match, path)        
+        # matched = -1
+        # for i in graph.nodes[node_index].adj:
+        #     if graph.nodes[node_index].match == i:
+        #         matched = i
+        # if matched == -1:
+        #     print("It is not matched.")
+        #     print("Augmenting path:", path)
+        #     graph = augment(graph, path)
+        # else:
+        #     graph = dfs(graph, matched, path)
     return graph
 
 
 def augment(graph, path):
+    print("Augmenting initiated")
     for i, j in zip(path, path[1:]):
-        if graph.nodes[i].match != -1:
+        print("Dealing with", i, j)
+        if graph.nodes[i].match == j or graph.nodes[j].match == i:
             graph.nodes[i].match = -1
-        elif graph.nodes[i].match == -1:
+            graph.nodes[j].match = -1
+            print("Unmatched", i, "<->", j)
+        else:
             graph.nodes[i].match = j
+            graph.nodes[j].match = i
+        print("Matched", i, "->", graph.nodes[i].match)
+        print("Matched", j, "->", graph.nodes[j].match)
         return graph
 
-# def augment(graph, path):
-#      for nodes, next in zip(path, path[1:]):
-#         if nodes.match != -1:
-#             nodes.match = -1
-#         elif nodes.match == -1:
-#             nodes.match = graph.query_index(next)
+
+
+# def path_finder(graph):
+  
+#     for node_index in graph.u:
+#         if graph.nodes[node_index].match == -1:
+#             graph = dfs(graph, node_index)
 #         else:
-#             print("Nigga wha?")
+#             graph.u.remove(node_index)
+#     return graph

@@ -9,9 +9,11 @@ graph1 = fetch_csv("data.csv")
 matched_graph = graph1
 
 
+# for i in graph1.nodes:
+#     print(i.adj)
 
 # def match(input_graph):
-#     cycle(input_graph.nodes[0])
+#     cycle(c_graph.nodes[0])
 #     matched_graph = Graph
 #     return matched_graph
 
@@ -25,6 +27,7 @@ matched_graph = graph1
 #         print("hello")
 
 
-graph2 = match(graph1)
+for i in match(graph1).nodes:
+    print(i.match)
 
 # print("Node list:", graph1.name_index)

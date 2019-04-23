@@ -12,7 +12,9 @@ class Graph: # contains the nodes array containing Node objects
         self.nodes = list()
         self.name_index = list() # To be removed after debugging
         self.row_length = 0
-
+        self.column_length = 0
+        self.u = []
+        self.v = []
     # Class Functions
 
     def add_new(self, new_name):
