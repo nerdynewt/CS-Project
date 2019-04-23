@@ -11,7 +11,7 @@
   * Clone the repo and run the main function, or
   * Run combined.py
 * Dependencies
-  * python3
+  * `python3` 
   * A Computer
 * Input is given as a `data.csv` adjacency matrix file, already demarcated into two: Candidates and Jobs, say.
 * IMPORTANT: The first cell ([0][0]) of the data.csv file _has_ to be "Hello". We used a regex search to delete that element.
@@ -35,9 +35,11 @@
 
 * The algorithm first divides the graph into two, _u_ and _v_
 * For every element in `u`, a DFS traversal is made (`path_finder`)
-* The `path_finder` keeps zig-zagging from u to v (such that v->u is matched) till it reaches an unmatched `v` node.
+* The `path_finder` keeps zig-zagging from u to v (such that `v->u` always is matched) till it reaches an unmatched `v` node.
 * Then it augments the path it just traversed
-* `path_finder` (Pseudocode? No.): 
+
+## Confusing Pseudocode
+* `path_finder`: 
   * Reaches a node:
   * if the node is in u
     * if the node is not connected to anything
@@ -63,7 +65,7 @@ The program takes input as a data.csv adjacency matrix like so:
 | Andy    | 1        | 1        | 1      | 1       | 
 
 
-The output is given out to the terminal, and as an output.csv file with the applicants (say) against the occupation, like so:
+The output is given out to the terminal, and as an `output.csv` file with the applicants (say) against the occupation, like so:
 
 |         |          | 
 |---------|----------| 
